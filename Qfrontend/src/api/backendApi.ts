@@ -47,15 +47,13 @@ class BackendApi {
 
   async sendMessage<T>(message: Message): Promise<ApiResponse<T>> {
     try {
-      const payload = {
-        content: message.text,
-        user_id: message.sender,
-      }
-      const response: AxiosResponse = await this.api.post('messages/send-message', payload, {
+      const response: AxiosResponse = await this.api.post('messages/send-message/', {
+        'content': message.text,
+        'user_id': message.sender,
+      }, {
         headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
+          'Content-Type': 'application/json'
+        }
       })
       return {
         data: response.data,
